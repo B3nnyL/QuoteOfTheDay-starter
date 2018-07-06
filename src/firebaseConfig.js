@@ -1,3 +1,3 @@
 export default {
-  /* paste your firebase app setup config here */
+  /* firebase config data goes here */
 }

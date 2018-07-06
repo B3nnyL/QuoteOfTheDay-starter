@@ -1,7 +1,7 @@
 <template>
   <div class="add-form-wrapper">
     <div class="container">
-      <form>
+      <form @submit="formSubmit">
         <div class="row">
           <div class="col-12 col-sm-12 col-md-8 mx-auto">
             <label>Tell us a line inspired you today at Levels Conf*</label>
@@ -9,7 +9,7 @@
         </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-8 mx-auto">
-            <textarea class="form__textarea" type="text" maxlength="140" placeholder="140 characters maximum input." required></textarea>
+            <textarea class="form__textarea" type="text" v-model="draft.content" maxlength="140" placeholder="140 characters maximum input." required></textarea>
           </div>
         </div>
         <div class="row">
@@ -19,7 +19,7 @@
         </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-8 mx-auto">
-            <input class="form__input" type="text">
+            <input class="form__input" type="text" v-model="draft.author">
           </div>
         </div>
         <div class="row">
@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-8 mx-auto">
-            <input class="form__input" type="text">
+            <input class="form__input" type="text" v-model="draft.contributor">
           </div>
         </div>
         <div class="row">
@@ -39,7 +39,7 @@
         </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-8 mx-auto">
-            <input class="form__input" type="text">
+            <input class="form__input" type="text" v-model="draft.socialUrl">
           </div>
         </div>
         <div class="row">
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import firestore from '../../firebaseInit.js'
+
 export default {
   name: 'AddForm',
   data: function() {
@@ -77,6 +79,15 @@ export default {
     }
   },
   methods: {
+    formSubmit: function() {
+      this.createQuote()
+    },
+    createQuote: function() {
+      firestore.collection('quotes').add(
+        this.draft
+      ).then(() => { this.$router.push('/') })
+      .catch(error => console.error('Error adding document: ', error))
+    }
   }
 }
 </script>
