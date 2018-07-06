@@ -6,18 +6,20 @@
       btnTitle="Add a new quote"
       :showCTA="true"
     ></hero>
-
+  <quote-grid></quote-grid>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Hero from '@/components/containers/Hero.vue'
+import QuoteGrid from '@/components/containers/QuoteGrid.vue'
 
 export default {
   name: 'home',
   components: {
-    Hero
+    Hero,
+    QuoteGrid
   }
 }
 </script>
